@@ -6,8 +6,6 @@ import { signOut } from "next-auth/react";
 
 const useRoutes = (currentUser) => {
   const pathname = usePathname();
-  console.log("from routers");
-  console.log(currentUser);
 
   if (currentUser?.role === "Admin") {
     const routes = useMemo(

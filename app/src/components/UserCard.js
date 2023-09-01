@@ -15,16 +15,21 @@ const UserCard = ({ user }) => {
   }, [user?.id]);
 
   return (
-    <div className="border-[1px] w-full flex flex-row items-center justify-between gap-2 m-2 pl-2 pr-2">
-      <div className="text-black text-lg text-semibold ">
-        Username: {user.name} |
+    <div className="border-[1px] w-full flex flex-row items-center justify-between gap-2 m-2 pl-20 pr-20">
+      <div className="text-black text-lg text-semibold mr-5">
+        Username: {user.name}
       </div>
 
-      <div className="text-black text-lg text-semibold ">
-        email: {user.email} |
+      <div className="text-black text-lg text-semibold mr-5">
+        email: {user.email}
       </div>
-      <div className="text-black text-lg text-semibold ">Role: {user.role}</div>
-      <Button label="delete" small onClick={deleteUser} />
+      <div className="text-black text-lg text-semibold mr-5">
+        Role: {user.role}
+      </div>
+      {/* <Button label="delete" small onClick={deleteUser} /> */}
+      <button className="bg-red-500 py-2 px-3 m-1 rounded-lg text-white hover:bg-neutral-300 transition">
+        Delete
+      </button>
     </div>
   );
 };

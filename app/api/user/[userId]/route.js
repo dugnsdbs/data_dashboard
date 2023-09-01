@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export async function DELETE(res, params) {
   try {
     const { userId } = params.params;
-    console.log("delete", userId);
     const currentUser = await getCurrentUser();
     if (currentUser.role !== "Admin") {
       return NextResponse.error();

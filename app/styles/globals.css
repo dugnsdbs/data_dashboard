@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root{
-  @apply h-full bg-neutral-300
+  @apply h-full bg-neutral-100
 }
 
 body{
-  @apply h-full bg-neutral-300
+  @apply h-full bg-neutral-100
 }

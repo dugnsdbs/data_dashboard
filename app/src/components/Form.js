@@ -37,15 +37,26 @@ const Form = ({ isRegsiter, isLogin, buttonLabel }) => {
         setIsLoading(true);
         if (isRegsiter) {
           await axios.post("/api/register", data);
-          alert("Register Success");
           router.refresh();
           reset();
         }
         if (isLogin) {
           const { email, password } = data;
-          signIn("credentials", { email, password });
-          alert("Login Success");
-          router.refresh();
+          const response = await signIn("credentials", {
+            email,
+            password,
+            callbackUrl: "/",
+            redirect: false,
+          });
+
+          if (response.error) {
+            alert("Wrong email or password");
+          } else {
+            alert("Login Success");
+            router.refresh();
+            router.push("/");
+          }
+
           reset();
         }
       } catch (error) {
@@ -66,10 +77,11 @@ const Form = ({ isRegsiter, isLogin, buttonLabel }) => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-center mt-10 pt-20">
+    <div className="flex flex-row items-center justify-center mt-5 pt-20">
       <div className="flex flex-col items-center justify-center w-60 gap-2">
         {isRegsiter && (
           <>
+            <h1 className="text-xl">Create User</h1>
             <RoleSelect
               value={role}
               onChange={(value) => setRoleValue("role", value)}

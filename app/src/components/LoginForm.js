@@ -31,7 +31,7 @@ const Form = ({ isLogin, buttonLabel }) => {
         setIsLoading(true);
 
         const { email, password } = data;
-        console.log(email, password);
+
         setIsLoading(true);
         signIn("credentials", {
           email,
