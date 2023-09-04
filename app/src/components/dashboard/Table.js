@@ -1,64 +1,12 @@
+"use client";
 import React from "react";
 import Counter from "../Counter";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Table = ({
-  label,
-  startDate,
-  handleStartDateChange,
-  endDate,
-  handleEndDateChange,
-  code,
-  isLoading,
-  resErr,
-  sqlResult,
-  handleSubmit,
-}) => {
+const Table = ({ isLoading, resErr, sqlResult }) => {
   return (
-    <div className="flex flex-col w-full h-full items-center ">
-      <div className="border-[2px] border-gray-700 mt-8 flex flex-col px-10 py-3 items-center justify-center rounded-md">
-        <h2 className="mt-5 text-4xl font-semibold">{label}</h2>
-        <div className="flex flex-row justify-between items-center gap-4 mt-5">
-          <div>
-            <p className="text-2xl">Start Date:</p>
-            <div className="mt-3 text-2xl">
-              <DatePicker
-                selected={startDate}
-                onChange={handleStartDateChange}
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                dateFormat="yyyy-MM-dd HH:mm"
-              />
-            </div>
-          </div>
-          <div className="mt-5 text-2xl"> ~ </div>
-          <div>
-            <p className="text-2xl">End Date:</p>
-            <div className="mt-3 text-2xl">
-              <DatePicker
-                selected={endDate}
-                onChange={handleEndDateChange}
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                dateFormat="yyyy-MM-dd HH:mm"
-              />
-            </div>
-          </div>
-          <div className="mt-7 ml-3">
-            <button
-              onClick={() => handleSubmit(code)}
-              className="btn border rounded py-2 px-4 text-xl text-green-100 bg-blue-600 border-blue-800 hover:bg-blue-400"
-            >
-              start
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="w-full p-1 h-160 overflow-auto mt-4">
+    <div className="flex flex-col w-full h-full items-center overflow-auto">
+      <div className="w-full p-1 h-full  mt-4 max-h-96 mb-20">
         {isLoading ? (
           <div className="w-full h-full flex flex-col justify-center items-center">
             <Counter />

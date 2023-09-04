@@ -4,7 +4,7 @@ import React from "react";
 
 const ComparisonPage = () => {
   return (
-    <div className="text-white flex flex-col items-center justify-center">
+    <div className="text-black flex flex-col items-center justify-center">
       ComparisonPage
     </div>
   );

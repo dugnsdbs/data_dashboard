@@ -8,6 +8,17 @@ export const evQuery = (formattedStartDate, formattedEndDate) => {
   return query;
 };
 
+export const evHourlyQuery = (hour) => {
+  let query = `
+    SELECT scenario FROM "lms_tms_tran*"
+    WHERE "@timestamp" > DATE_ADD('minute', -${hour} ,current_timestamp)
+    AND company = '02'
+    group by scenario
+    `;
+
+  return query;
+};
+
 export const iceQuery = (formattedStartDate, formattedEndDate) => {
   let query = `SELECT count(vin) FROM "lms_tms_tran*"
       WHERE "@timestamp" >= CAST('${formattedStartDate}' AS DATETIME)

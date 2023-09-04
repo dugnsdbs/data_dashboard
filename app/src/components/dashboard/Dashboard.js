@@ -1,31 +1,65 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
-
+import React, { useState, useContext, useEffect, useCallback } from "react";
+import "react-datepicker/dist/react-datepicker.css";
+import { format, differenceInMinutes } from "date-fns";
+import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
+import { iceQuery, evHourlyQuery } from "@/app/src/util/query";
 import axios from "axios";
 import Table from "./Table";
+import DateChoose from "./DateChoose";
+import SelectHour from "./SelectHour";
+import Select from "react-select";
 
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
-
-const DashboardTable = ({
-  label,
-  startDate,
-  endDate,
-  setStartDate,
-  setEndDate,
-  code,
-}) => {
-  console.log(label);
+const Dashboard = ({ label }) => {
   const [sqlResult, setSqlResult] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [resErr, setResErr] = useState("");
+  const [code, setCode] = useState(null);
 
-  const options = [
-    { label: "One hour", value: "60" },
-    { label: "Two hours", value: "120" },
-    // Add more options as needed
-  ];
+  const pacificTimeZone = "America/Los_Angeles";
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
+  const formattedStartDate = format(startDate, "yyyy-MM-dd'T'HH:mm:ss");
+  const formattedEndDate = format(endDate, "yyyy-MM-dd'T'HH:mm:ss");
+
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  console.log(selectedOption);
+
+  // Handle the onChange event to update the selected option
+  const handleSelectChange = (selectedOption) => {
+    setSelectedOption(selectedOption);
+  };
+
+  useEffect(() => {
+    if (selectedOption !== null) {
+      let hourly = evHourlyQuery(selectedOption?.value);
+      handleSubmit(hourly);
+      const now = new Date();
+      const nextFiveMinuteMark = new Date(
+        Math.ceil(now.getTime() / 30000) * 30000
+      );
+      const timeUntilNextMark = nextFiveMinuteMark - now;
+      const interval = setInterval(() => {
+        handleSubmit(hourly);
+      }, timeUntilNextMark);
+      return () => {
+        clearInterval(interval);
+      };
+    } else {
+      const evQ = iceQuery(formattedStartDate, formattedEndDate);
+      setCode(evQ);
+      console.log(selectedOption);
+    }
+  }, [selectedOption, formattedStartDate, formattedEndDate]);
+
+  // useEffect(() => {
+  //   const evQ = iceQuery(formattedStartDate, formattedEndDate);
+  //   setCode(evQ);
+  //   console.log(selectedOption);
+  // }, [formattedStartDate, formattedEndDate]);
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -50,24 +84,58 @@ const DashboardTable = ({
     [setIsLoading, setSqlResult, setResErr]
   );
 
+  const options = [
+    { label: "One hour", value: "60" },
+    { label: "Two hours", value: "120" },
+    // Add more options as needed
+  ];
+
   return (
     <>
       <div className="flex flex-col items-center justify-center w-full h-full">
-        <Table
-          label={label}
-          startDate={startDate}
-          handleStartDateChange={handleStartDateChange}
-          endDate={endDate}
-          handleEndDateChange={handleEndDateChange}
-          code={code}
-          isLoading={isLoading}
-          resErr={resErr}
-          sqlResult={sqlResult}
-          handleSubmit={handleSubmit}
-        />
+        <div className="border-[2px] border-gray-700 mt-8 flex flex-col px-10 py-3rounded-md">
+          <h2 className="mt-5 text-4xl font-semibold text-red-800">{label}</h2>
+          <div className="flex flex-row justify-start mt-4">
+            <div className="font-semibold text-2xl mr-20">
+              <p>Pick Hour</p>
+            </div>
+            <div className="">
+              <Select
+                value={selectedOption}
+                onChange={handleSelectChange}
+                options={options}
+                isClearable
+                placeholder="Select an option"
+              />
+            </div>
+          </div>
+
+          {/* <div>
+            <h2>Select an Option:</h2>
+            <select value={selectedOption} onChange={handleSelectChange}>
+              <option value="">Select an option</option>
+              {options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div> */}
+
+          <DateChoose
+            startDate={startDate}
+            endDate={endDate}
+            code={code}
+            handleStartDateChange={handleStartDateChange}
+            handleEndDateChange={handleEndDateChange}
+            handleSubmit={handleSubmit}
+          />
+        </div>
+
+        <Table isLoading={isLoading} resErr={resErr} sqlResult={sqlResult} />
       </div>
     </>
   );
 };
 
-export default DashboardTable;
+export default Dashboard;

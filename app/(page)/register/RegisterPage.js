@@ -7,7 +7,7 @@ import React from "react";
 const RegisterPage = ({ allUsers }) => {
   return (
     <div className="flex flex-row gap-4 items-center justify-between h-full">
-      <div className="w-1/4 float-left bg-neutral-100 h-full flex flex-col items-center">
+      <div className="border-[1px] w-1/6 float-left bg-neutral-100 h-full flex flex-col items-center">
         <Form isRegsiter buttonLabel="Create" />
       </div>
       <div className="w-3/4 float-right bg-neutral-100 h-full flex flex-col items-center mt-20 mr-20">
