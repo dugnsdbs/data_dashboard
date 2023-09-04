@@ -7,17 +7,6 @@ import getCurrentUser from "../src/actions/getCurrentUser";
 import Header from "../src/components/Header";
 import "../styles/globals.css";
 
-// import getCurrentUser from "./src/actions/getCurrentUser";
-// import Auth from "./src/components/auth/Auth";
-// import Register from "./src/components/auth/Register";
-// import Container from "./src/components/Container";
-// import Navbar from "./src/components/nav/Navbar";
-// import AuthContext from "./src/context/AuthContext";
-// import "./styles/globals.css";
-// import { Inter } from "next/font/google";
-
-// const inter = Inter({ subsets: ["latin"] });
-
 export const metadata = {
   title: "HMA Dashboard",
   description: "Dashboard",

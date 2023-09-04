@@ -8,7 +8,7 @@ const Navbar = ({ currentUser }) => {
   const routes = useRoutes(currentUser);
 
   return (
-    <div className="w-full h-20 gap-3 bg-black relative">
+    <div className="w-full h-20 gap-3 bg-black absoluted">
       {/* <div className="w-full gap-3 fixed z-40 top-0 bg-neutral-400"> */}
       <div></div>
       <nav className="flex flex-row h-full items-center justify-center">

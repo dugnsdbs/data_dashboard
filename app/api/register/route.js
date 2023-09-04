@@ -8,7 +8,7 @@ export async function POST(res) {
     const { email, password, role, name } = data;
 
     if (!email || !password || !role || !name) {
-      return NextResponse.error("Missing parameters", { status: 401 });
+      throw new Error("all fields required");
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -25,8 +25,6 @@ export async function POST(res) {
 
     return NextResponse.json(user);
   } catch (error) {
-    return NextResponse.error("Something is wrong during register", {
-      status: 400,
-    });
+    return NextResponse.error("Something is wrong during register");
   }
 }

@@ -36,10 +36,17 @@ const Form = ({ isRegsiter, isLogin, buttonLabel }) => {
       try {
         setIsLoading(true);
         if (isRegsiter) {
-          await axios.post("/api/register", data);
-          router.refresh();
-          reset();
+          const response = await axios.post("/api/register", data);
+          console.log(response.error);
+          if (response.error) {
+            alert("All fields required");
+          } else {
+            alert("Create account Success");
+            router.refresh();
+            reset();
+          }
         }
+
         if (isLogin) {
           const { email, password } = data;
           const response = await signIn("credentials", {

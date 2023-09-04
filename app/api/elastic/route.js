@@ -14,8 +14,6 @@ const client = new Client({
   tls: { rejectUnauthorized: false },
 });
 export async function POST(req) {
-  // console.log(req.body.query);
-  // const query = req.body.query;
   const body = await req.json();
   const { query } = body;
   try {
@@ -26,27 +24,42 @@ export async function POST(req) {
       time_zone: "America/Los_Angeles",
     });
     console.log(result.rows.length);
-    let cursotExist = false;
+    let cursorExist = false;
     let cursor = "";
     let cursorNumber = 0;
+
+    console.log("result.hasOwnProperty(cursor)");
+    console.log(result.hasOwnProperty("cursor"));
+
     if (result.hasOwnProperty("cursor")) {
-      console.log("cursor exits");
-      cursotExist = true;
+      console.log("cursor exist");
+      cursorExist = true;
       cursor = result["cursor"];
-      while (cursotExist) {
+      console.log("corsor first");
+      console.log(cursor);
+
+      while (cursorExist) {
         // console.log(cursorNumber)
         const nextResult = await client.sql.query({
           cursor,
         });
+        console.log("Nextresult");
+        console.log(nextResult);
+        console.log("Nextresult row");
+        console.log(nextResult.rows);
         result.rows = result.rows.concat(nextResult.rows);
+        console.log(result.rows);
         console.log(result.rows.length);
 
         if (!nextResult.hasOwnProperty("cursor")) {
-          cursotExist = false;
+          cursorExist = false;
         } else {
           cursor = nextResult["cursor"];
+          console.log("last cursor");
+          console.log(cursor);
         }
         cursorNumber++;
+        console.log(cursorNumber);
       }
     }
     // console.log(result)
