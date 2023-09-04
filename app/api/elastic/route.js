@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 const client = new Client({
   requestTimeout: 600000,
   pingTimeout: 600000,
-  nodes: ["https://10.112.204.101:9200"],
+  nodes: [process.env.ELK_URL],
   auth: {
-    username: "elastic",
-    password: "Hae01@",
+    username: process.env.ELK_USERNAME,
+    password: process.env.ELK_PASSWORD,
   },
   // sniffOnStart: true,
   tls: { rejectUnauthorized: false },
