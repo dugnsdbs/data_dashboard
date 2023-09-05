@@ -18,7 +18,7 @@ const Input = ({
         {...register(id, required)}
         placeholder={placeholder}
         type={type}
-        className={`peer mt-1 w-full p-4 pt-6 font-light bg-white border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed `}
+        className={`peer mt-1 w-full p-4 pt-6 font-light bg-white border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed hover:border-orange-100`}
       />
       <label
         className={`absolute text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0]

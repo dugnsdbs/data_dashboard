@@ -14,7 +14,7 @@ const DateChoose = ({
 }) => {
   return (
     <>
-      <div className="flex flex-row gap-4 mt-1  border-b-[1px] border-green-600 pb-1">
+      <div className="flex flex-row gap-4 mt-1">
         <div className="flex flex-row justify-between items-center">
           <p className="text-2xl">Start Date:</p>
           <div className="text-2xl">

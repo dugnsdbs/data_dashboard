@@ -10,10 +10,14 @@ const RegisterPage = ({ allUsers }) => {
       <div className="border-[1px] w-1/6 float-left bg-neutral-100 h-full flex flex-col items-center">
         <Form isRegsiter buttonLabel="Create" />
       </div>
-      <div className="w-3/4 float-right bg-neutral-100 h-full flex flex-col items-center mt-20 mr-20">
+      <div className="w-3/4 float-right bg-neutral-100 h-full mt-20 pt-20 flex flex-wrap">
+        {/* <div classNeme=" w-full h-full"> */}
         {allUsers.map((user) => (
-          <UserCard key={user.id} user={user} />
+          <div className="w-1/2">
+            <UserCard key={user.id} user={user} />
+          </div>
         ))}
+        {/* </div> */}
       </div>
     </div>
   );

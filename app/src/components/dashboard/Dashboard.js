@@ -100,7 +100,7 @@ const Dashboard = ({ label }) => {
             </h2>
           </div>
           <div className="border-[1px] border-gray-700 mt-8 flex flex-row px-10 py-3 rounded-md">
-            <div className="flex flex-row justify-start mt-2 mr-10 border-b-[1px] border-green-600">
+            <div className="flex flex-row justify-start mt-2 mr-10">
               <div className="font-semibold text-2xl mr-5">
                 <p>Pick Hour</p>
               </div>
