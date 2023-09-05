@@ -93,45 +93,38 @@ const Dashboard = ({ label }) => {
   return (
     <>
       <div className="flex flex-col items-center justify-center w-full h-full">
-        <div className="border-[2px] border-gray-700 mt-8 flex flex-col px-10 py-3rounded-md">
-          <h2 className="mt-5 text-4xl font-semibold text-red-800">{label}</h2>
-          <div className="flex flex-row justify-start mt-4">
-            <div className="font-semibold text-2xl mr-20">
-              <p>Pick Hour</p>
-            </div>
-            <div className="">
-              <Select
-                value={selectedOption}
-                onChange={handleSelectChange}
-                options={options}
-                isClearable
-                placeholder="Select an option"
-              />
-            </div>
+        <div className="flex flex-row justify-between items-center">
+          <div className="mr-20">
+            <h2 className="mt-5 text-4xl font-semibold text-red-800">
+              {label}
+            </h2>
           </div>
+          <div className="border-[1px] border-gray-700 mt-8 flex flex-row px-10 py-3 rounded-md">
+            <div className="flex flex-row justify-start mt-2 mr-10 border-b-[1px] border-green-600">
+              <div className="font-semibold text-2xl mr-5">
+                <p>Pick Hour</p>
+              </div>
+              <div>
+                <Select
+                  value={selectedOption}
+                  onChange={handleSelectChange}
+                  options={options}
+                  isClearable
+                  placeholder="Select an option"
+                />
+              </div>
+            </div>
 
-          {/* <div>
-            <h2>Select an Option:</h2>
-            <select value={selectedOption} onChange={handleSelectChange}>
-              <option value="">Select an option</option>
-              {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div> */}
-
-          <DateChoose
-            startDate={startDate}
-            endDate={endDate}
-            code={code}
-            handleStartDateChange={handleStartDateChange}
-            handleEndDateChange={handleEndDateChange}
-            handleSubmit={handleSubmit}
-          />
+            <DateChoose
+              startDate={startDate}
+              endDate={endDate}
+              code={code}
+              handleStartDateChange={handleStartDateChange}
+              handleEndDateChange={handleEndDateChange}
+              handleSubmit={handleSubmit}
+            />
+          </div>
         </div>
-
         <Table isLoading={isLoading} resErr={resErr} sqlResult={sqlResult} />
       </div>
     </>
