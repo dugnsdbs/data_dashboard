@@ -17,10 +17,10 @@ const RegisterPage = ({ allUsers }) => {
       <div className="w-3/4 float-right h-5/6 bg-neutral-100 flex flex-wrap mt-20 justify-center gap-10 mr-9">
         <div className="flex flex-col">
           <div className="text-4xl font-semibold mb-2 text-blue-600">Admin</div>
-          <div className="border-[1px] rounded-md border-gray-500 overflow-y-auto h-5/6">
+          <div className="border-[1px] rounded-md border-gray-700 overflow-y-auto h-5/6">
             {AdminRole.map((user) => (
               <div
-                className="h-auto border-[1px] w-auto border-neutral-400 rounded-md m-2"
+                className="h-auto border-[1px] w-auto border-neutral-400 rounded-md mr-4 ml-4 mt-2"
                 key={user.id}
               >
                 <UserCard user={user} />
@@ -33,7 +33,7 @@ const RegisterPage = ({ allUsers }) => {
           <div className="border-[1px] rounded-md border-gray-700 overflow-y-auto h-5/6">
             {userRole.map((user) => (
               <div
-                className="h-auto border-[1px] w-auto border-neutral-400 rounded-md m-2"
+                className="h-auto border-[1px] w-auto border-neutral-400 rounded-md mr-4 ml-4 mt-2"
                 key={user.id}
               >
                 <UserCard user={user} />

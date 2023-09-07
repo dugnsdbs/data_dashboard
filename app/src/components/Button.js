@@ -24,7 +24,7 @@ const Button = ({ label, onClick, disabled, outline, small, icon: Icon }) => {
         ${small ? "font-light" : "font-semibold"}
         ${small ? "border-[1px]" : "border-2"}
         ${small ? "w-auto" : ""}
-        ${small ? "m-2" : "mt-12"}
+        ${small ? "m-2" : "mt-8"}
       `}
     >
       {Icon && (

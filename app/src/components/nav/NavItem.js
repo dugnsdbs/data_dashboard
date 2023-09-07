@@ -14,7 +14,7 @@ const NavItem = ({ href, label, icon: Icon, active, onClick }) => {
     <li key={label} onClick={handleClick}>
       <Link
         href={href}
-        className={`group flex rounded-md text-xl font-semibold text-white hover:text-blue-300 hover:underline transition mr-10
+        className={`group flex rounded-md text-xl font-semibold text-white hover:text-sky-400 transition mr-10
         `}
       >
         {/* <Icon className="h-6 w-6 shrink-0" aria-hidden="true" /> */}

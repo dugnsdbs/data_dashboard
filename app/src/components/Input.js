@@ -12,13 +12,13 @@ const Input = ({
   type,
 }) => {
   return (
-    <div className="w-full h-8 relative mt-10">
+    <div className="w-full h-8 relative mt-2">
       <input
         id={id}
         {...register(id, required)}
         placeholder={placeholder}
         type={type}
-        className={`peer mt-1 w-full p-4 pt-6 font-light bg-white border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed hover:border-orange-100`}
+        className={`peer mt-1 w-full p-2 pt-2 font-light bg-white border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed hover:border-orange-100`}
       />
       <label
         className={`absolute text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0]

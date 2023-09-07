@@ -17,7 +17,7 @@ const UserCard = ({ user }) => {
 
   return (
     <>
-      <div className=" flex flex-row items-center justify-between hover:bg-neutral-400 hover:border-rose-500 hover:text-white transition cursor-pointer px-2">
+      <div className=" flex flex-row items-center justify-between hover:bg-neutral-300 hover:border-rose-500 transition cursor-pointer px-4">
         <div className="text-lg text-semibold mr-2">User: {user?.name}</div>
         <div className="text-lg text-semibold mr-2">email: {user?.email}</div>
         <div className="text-lg text-semibold mr-2">Role: {user?.role}</div>

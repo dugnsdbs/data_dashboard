@@ -24,7 +24,7 @@ const RoleSelect = ({ value, onChange }) => {
           </div>
         )}
         className={{
-          control: () => "p3 border-2",
+          control: () => "p2 border-2",
           input: () => "text-lg",
           option: () => "text-lg",
         }}
