@@ -28,6 +28,7 @@ export async function POST(req) {
     let cursor = "";
     let cursorNumber = 0;
 
+    console.log(result);
     console.log("result.hasOwnProperty(cursor)");
     console.log(result.hasOwnProperty("cursor"));
 

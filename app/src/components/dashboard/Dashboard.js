@@ -4,14 +4,19 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, differenceInMinutes } from "date-fns";
 import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
-import { iceQuery, evHourlyQuery } from "@/app/src/util/query";
+import {
+  iceQuery,
+  evHourlyQuery,
+  evQuery,
+  iceHourlyQuery,
+} from "@/app/src/util/query";
 import axios from "axios";
 import Table from "./Table";
 import DateChoose from "./DateChoose";
 import SelectHour from "./SelectHour";
 import Select from "react-select";
 
-const Dashboard = ({ label }) => {
+const Dashboard = ({ label, isEv, isIce }) => {
   const [sqlResult, setSqlResult] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [resErr, setResErr] = useState("");
@@ -26,8 +31,6 @@ const Dashboard = ({ label }) => {
 
   const [selectedOption, setSelectedOption] = useState(null);
 
-  console.log(selectedOption);
-
   // Handle the onChange event to update the selected option
   const handleSelectChange = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -35,12 +38,15 @@ const Dashboard = ({ label }) => {
 
   useEffect(() => {
     if (selectedOption !== null) {
-      let hourly = evHourlyQuery(selectedOption?.value);
+      let hourly = isEv
+        ? evHourlyQuery(selectedOption?.value)
+        : iceHourlyQuery(selectedOption?.value);
       handleSubmit(hourly);
       const now = new Date();
-      const nextFiveMinuteMark = new Date(
-        Math.ceil(now.getTime() / 30000) * 30000
-      );
+      const duration =
+        Math.ceil(now.getTime() / (`${selectedOption?.value}` * 60 * 1000)) *
+        (`${selectedOption?.value}` * 60 * 1000);
+      const nextFiveMinuteMark = new Date(duration);
       const timeUntilNextMark = nextFiveMinuteMark - now;
       const interval = setInterval(() => {
         handleSubmit(hourly);
@@ -49,17 +55,12 @@ const Dashboard = ({ label }) => {
         clearInterval(interval);
       };
     } else {
-      const evQ = iceQuery(formattedStartDate, formattedEndDate);
-      setCode(evQ);
-      console.log(selectedOption);
+      const anotherQuery = isEv
+        ? evQuery(formattedStartDate, formattedEndDate)
+        : iceQuery(formattedStartDate, formattedEndDate);
+      setCode(anotherQuery);
     }
   }, [selectedOption, formattedStartDate, formattedEndDate]);
-
-  // useEffect(() => {
-  //   const evQ = iceQuery(formattedStartDate, formattedEndDate);
-  //   setCode(evQ);
-  //   console.log(selectedOption);
-  // }, [formattedStartDate, formattedEndDate]);
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -85,8 +86,13 @@ const Dashboard = ({ label }) => {
   );
 
   const options = [
+    { label: "1 minute", value: "1" },
+    { label: "half hour", value: "30" },
     { label: "One hour", value: "60" },
     { label: "Two hours", value: "120" },
+    { label: "three hours", value: "180" },
+    { label: "four hours", value: "240" },
+    { label: "five hours", value: "300" },
     // Add more options as needed
   ];
 

@@ -11,6 +11,12 @@ const useRoutes = (currentUser) => {
     const routes = useMemo(
       () => [
         {
+          label: "Home",
+          href: "/",
+          icon: HiUsers,
+          active: pathname === "/",
+        },
+        {
           label: "Subscription Summary",
           href: "/subscription",
           icon: HiUsers,
